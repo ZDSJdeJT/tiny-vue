@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <title>Tiny Vue</title>
+    <script defer type="module">
+      import {
+        h,
+        mountApp,
+        reactive,
+        watchEffect,
+      } from "./tiny-vue.js";
+
+      const app = {
+        data: reactive({
+          msg: "Click me!",
+        }),
+        render() {
+          return h("button", {
+            type: "button",
+            onClick: () => {
+              this.data.msg = this.data.msg.split("").reverse().join(
+                "",
+              );
+            },
+          }, this.data.msg);
+        },
+      };
+
+      watchEffect(() => alert(app.data.msg));
+
+      mountApp(app, document.getElementById("app"));
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
